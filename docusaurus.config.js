@@ -102,10 +102,10 @@ const config = {
           //   position: "left",
           //   label: "Guide",
           // },
-          // {
-          //   type: "search",
-          //   position: "right",
-          // },
+          {
+            type: "search",
+            position: "right",
+          },
           {
             label: "Support",
             position: "right",
