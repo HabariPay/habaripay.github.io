@@ -6,7 +6,7 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #b30033;
+  --ifm-color-primary: #d02c5b;
   --ifm-color-primary-dark: #a1002e;
   --ifm-color-primary-darker: #98002b;
   --ifm-color-primary-darkest: #7d0024;
@@ -161,6 +161,14 @@ a.menu__link.menu__link--sublist.menu__link--sublist-care {
   transition: all ease 0.1s;
 }
 
+[data-theme="dark"] .menu__link--active:not(.menu__link--sublist) {
+  background: transparent;
+  color: #fb799e;
+  border-left: 3px solid #fb799e;
+  border-radius: 0;
+  transition: all ease 0.1s;
+}
+
 .pagination-nav {
   border-top: 1px solid rgba(45, 72, 117, 0.24);
 }
@@ -173,16 +181,10 @@ a.menu__link.menu__link--sublist.menu__link--sublist-care {
   color: #475569;
   font-weight: 500;
   font-size: 14px;
-  &:hover {
-    color: #b30033;
-  }
 }
 
 [data-theme="dark"] .pagination-nav__label {
   color: #e2e8ef;
-  &:hover {
-    color: #fb799e;
-  }
 }
 
 .pagination-nav__label:hover {
@@ -237,19 +239,70 @@ a.menu__link.menu__link--sublist.menu__link--sublist-care {
   color: #bdc2ca;
 }
 
-/* .alert--warning {
-    --ifm-alert-background-color: #FEEDD6;
-    border: 1px solid #F3DFC3;
+.DocSearch-Button {
+  border-radius: 4px !important;
+  padding-right: 3rem !important;
+  padding-left: 0.6rem !important;
+  height: 34px !important;
 }
 
-.alert--info {
-    --ifm-alert-background-color: #E9F7FF;
-    border: 1px solid #A5D0E9;
-} */
-/* 
-pre code, .codeBlock_node_modules-\@docusaurus-theme-classic-lib-theme-CodeBlock-Content-styles-module{
-  background: #1E293B;
-} */
+[data-theme="light"] .DocSearch-Button:hover {
+  box-shadow: #e51e51 !important;
+}
+
+[data-theme="light"] .DocSearch-Form {
+  box-shadow: #6c5159 !important;
+}
+
+[data-theme="light"] .DocSearch-Button {
+  border: 1px solid #2d487530;
+}
+
+.DocSearch-Button-Keys {
+  display: none !important;
+}
+
+.DocSearch-Button .DocSearch-Search-Icon {
+  width: 16px;
+  color: #777777 !important;
+}
+
+[data-theme="dark"] .DocSearch-Button .DocSearch-Search-Icon {
+  color: #cfd7e1 !important;
+}
+
+[data-theme="dark"] .DocSearch-Search-Icon {
+  stroke-width: 1px !important;
+}
+
+[data-theme="light"] .DocSearch-Hit[aria-selected="true"] a {
+  background-color: #333333 !important;
+}
+
+.DocSearch-MagnifierLabel,
+.DocSearch-Reset {
+  color: #333333 !important;
+}
+
+[data-theme="dark"] .DocSearch-MagnifierLabel,
+[data-theme="dark"] .DocSearch-Reset {
+  color: #888888 !important;
+}
+
+.DocSearch-Button-Placeholder {
+  font-size: 14px !important;
+  padding-left: 0.6rem !important;
+  font-weight: 500 !important;
+}
+
+[data-theme="light"] .DocSearch {
+  --docsearch-searchbox-background: #ffffff;
+  --docsearch-highlight-color: blue;
+}
+
+[data-theme="dark"] .DocSearch {
+  --docsearch-searchbox-background: #2f363e;
+}
 
 .codeBlockContainer_node_modules-\@docusaurus-theme-classic-lib-theme-CodeBlock-Container-styles-module {
   margin-bottom: 0 !important;

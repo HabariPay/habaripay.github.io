@@ -9,18 +9,16 @@ export const Toggle = ({ data }) => {
   const classState = open ? "open" : "";
   const rotate = open ? "rotate-90" : "";
 
-  console.log(data, "data");
-
   const onClick = () => {
     setOpen((state) => !state);
   };
 
   return (
     <Wrapper
-      className={`${classState} dark:border-b-[#303337] cursor-pointer py-[14px] px-[35px]`}
+      className={`${classState} dark:border-b-[#303337] cursor-pointer py-[14px] px-4 sm:px-[35px]`}
       onClick={onClick}
     >
-      <div className="grid grid-cols-[2fr_3fr_1fr]">
+      <div className="grid grid-cols-[2fr_3fr_1fr] gap-x-4 md:gap-x-0">
         <div className="flex">
           <div
             className={twMerge(
@@ -28,10 +26,14 @@ export const Toggle = ({ data }) => {
               data?.pill
             )}
           />
-          <span className="flex-none">{data?.status}</span>
+          <span className="flex-none text-xs md:text-sm text-wrap w-20 sm:w-auto max-w-[100%]">
+            {data?.status}
+          </span>
         </div>
 
-        <span className=" font-normal">{data?.responseMsg}</span>
+        <span className=" font-normal text-xs md:text-sm text-wrap ">
+          {data?.responseMsg}
+        </span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height="1em"
@@ -56,8 +58,8 @@ export default function AccordionCode({ items }) {
       <h4>Responses</h4>
       <Container className=" dark:border-[#303337]">
         <div className="">
-          {items?.map((item) => {
-            return <Toggle key={item.key} data={item} />;
+          {items?.map((item, id) => {
+            return <Toggle key={id} data={item} />;
           })}
         </div>
       </Container>

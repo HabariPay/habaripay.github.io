@@ -83,11 +83,21 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      docs: {
+        sidebar: {
+          hideable: true,
+          autoCollapseCategories: true,
+        },
+      },
       // Replace with your project's social card
       image: "img/docusaurus-social-card.jpg",
+      algolia: {
+        appId: "4ZNUPZ9VYC",
+        apiKey: "413577faf48328eaf7434e8d2c802769",
+        indexName: "squadco",
+        contextualSearch: false,
+      },
       navbar: {
-        // title: "DOCS",
-
         logo: {
           alt: "My Site Logo",
           src: "img/squad_logo.svg",
@@ -96,16 +106,10 @@ const config = {
         },
 
         items: [
-          // {
-          //   type: "docSidebar",
-          //   sidebarId: "tutorialSidebar",
-          //   position: "left",
-          //   label: "Guide",
-          // },
-          // {
-          //   type: "search",
-          //   position: "right",
-          // },
+          {
+            type: "search",
+            position: "right",
+          },
           {
             label: "Support",
             position: "right",
@@ -114,10 +118,6 @@ const config = {
             rel: null,
             className: "nav-link_suppport",
           },
-          // {
-          //   type: "separator",
-          //   position: "right",
-          // },
           {
             to: "https://dashboard.squadco.com/sign-up",
             label: "Create Account",

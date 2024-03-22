@@ -8,7 +8,7 @@ const RefundImg = "img/refunds.svg";
 
 const Hero = () => {
   return (
-    <div className="grid grid-cols-2 grid-rows-2 gap-2 m-auto">
+    <div className="grid grid-cols-1 sm:grid-cols-2 grid-rows-2 gap-2 m-auto">
       <a
         href="/Payments/overview"
         className={twMerge(

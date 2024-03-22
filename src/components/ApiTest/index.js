@@ -10,23 +10,25 @@ const ApiTest = () => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [amount, setAmount] = useState("");
   const [email, setEmail] = useState("");
+  const [merchantKey, setMerchantKey] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("cURL");
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
 
   let nodeCode = `
   const axios = require('axios');
   let data = JSON.stringify({
-    "amount":${amount ? amount + "," : "_ ,"}
-    "email":${email ? email + " " : "_ "},
+    "amount": ${amount ? amount + "," : "_ ,"}
+    "email": ${email ? email + "," : "_ ,"}
+    "key": ${merchantKey ? merchantKey + "," : "_ ,"}
     "currency": "NGN",
     "initiate_type": "inline",
     "CallBack_URL": "https://www.linkedin.com/",
-    "is_recurring": true
   });
   
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'https://qa-api.squadinc.co/payment/Initiate',
+    url: 'https://sandbox-api.squadco.com/payment/Initiate',
     headers: { 
       'Authorization': '47M3DMZD', 
       'Content-Type': 'application/json'
@@ -49,14 +51,14 @@ const ApiTest = () => {
     'Authorization': '47M3DMZD',
     'Content-Type': 'application/json'
   };
-  var request = http.Request('POST', Uri.parse('https://qa-api.squadinc.co/payment/Initiate'));
+  var request = http.Request('POST', Uri.parse('https://sandbox-api.squadco.com/payment/Initiate'));
   request.body = json.encode({
-    "amount":${amount ? amount + "," : "_ ,"}
-    "email":${email ? email + " " : "_ "},
+    "amount": ${amount ? amount + "," : "_ ,"}
+    "email": ${email ? email + "," : "_ ,"}
+    "key":${merchantKey ? merchantKey + "," : "_ ,"}
     "currency": "NGN",
     "initiate_type": "inline",
     "CallBack_URL": "https://www.linkedin.com/",
-    "is_recurring": true
   });
   request.headers.addAll(headers);
   
@@ -72,18 +74,18 @@ const ApiTest = () => {
 `;
 
   let curlCode = `
-  curl --location 'https://qa-api.squadinc.co/payment/Initiate' 
+  curl --location 'https://sandbox-api.squadco.com/payment/Initiate' 
   --header 'Authorization: 47M3DMZD'
   --header 'Content-Type: application/json'
   --data-raw '{
     "amount":${amount ? amount + "," : "_ ,"}
-    "email":${email ? email + " " : "_ "},
+    "email":${email ? email + "," : "_ ,"}
+    "key":${merchantKey ? merchantKey + "," : "_ ,"}
       "currency":"NGN",
       "initiate_type": "inline",
       "CallBack_URL" : "https://www.linkedin.com/",
-      "is_recurring": true
   }
-  '
+
 `;
 
   function initWidget() {
@@ -93,8 +95,8 @@ const ApiTest = () => {
       amount: Number(amount) * 100,
       email: email,
       currency_code: "NGN",
-      key: "qa_pk_sample-public-key-1",
-      is_recurring: true,
+      key: merchantKey,
+      // is_recurring: true,
       initiate_type: "inline",
     };
 
@@ -135,7 +137,7 @@ const ApiTest = () => {
             POST
           </p>
           <p className="text-[rgba(45,72,117,0.70)] dark:text-[#a8b7cc] pl-2 md:pl-4">
-            api.squad.co/payment/Initiate
+            sandbox-api.squadco.com/payment/Initiate
           </p>
         </div>
         <Dropdown
@@ -154,7 +156,7 @@ const ApiTest = () => {
       <div className="py-6 md:grid md:grid-cols-2 md:gap-9 items-center">
         <div className="">
           <form className="text-base" onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col">
+            <div className="flex flex-col pb-5">
               <label className="pb-1 text-sm" htmlFor="amount">
                 Charge Amount (₦)
               </label>
@@ -172,7 +174,7 @@ const ApiTest = () => {
                 })}
                 // onChange={(e) => setAmount(e.target.value)}
                 className={twMerge(
-                  "rounded-[4px] px-3 py-3 mb-5 border-[#BDBDBD] border-solid border placeholder:text-[#828282] dark:bg-transparent ",
+                  "rounded-[4px] px-3 py-3 border-[#BDBDBD] border-solid border placeholder:text-[#828282] dark:bg-transparent ",
                   errors?.amount && "border-red-500"
                 )}
               />
@@ -191,7 +193,7 @@ const ApiTest = () => {
                 type="email"
                 placeholder="e.g example@email.com"
                 {...register("email", {
-                  required: "Please provide a valid email",
+                  required: "Email is required",
                   onChange: (e) => {
                     setEmail(e.target.value);
                   },
@@ -207,6 +209,31 @@ const ApiTest = () => {
                 </p>
               )}
             </div>
+            <div className="flex flex-col pt-5">
+              <label className="pb-1 text-sm" htmlFor="mkey">
+                Merchant key
+              </label>
+              <input
+                id="mkey"
+                type="text"
+                placeholder="e.g sandbox_sk_ec8d24ec25..."
+                {...register("merchant_key", {
+                  required: "Merchant key is required",
+                  onChange: (e) => {
+                    setMerchantKey(e.target.value);
+                  },
+                })}
+                className={twMerge(
+                  "rounded-[4px] px-3 py-3 border-[#BDBDBD] border-solid border placeholder:text-[#828282] dark:bg-transparent",
+                  errors?.merchant_key && "border-red-500"
+                )}
+              />
+              {errors.merchant_key && (
+                <p className="text-red-600 text-xs m-0 p-0 pt-1 transition-all">
+                  {errors.merchant_key.message}
+                </p>
+              )}
+            </div>
             <button
               type="submit"
               // onClick={initWidget}
@@ -217,7 +244,7 @@ const ApiTest = () => {
           </form>
         </div>
         <div className="">
-          <CodeBlock className="language-jsx h-64 overflow-scroll">
+          <CodeBlock className="language-jsx h-72 overflow-scroll">
             {selectedLanguage === "cURL"
               ? curlCode
               : selectedLanguage === "Javascript"

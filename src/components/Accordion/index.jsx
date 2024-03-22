@@ -30,8 +30,8 @@ const Accordion = (props) => {
             {props.method}
           </div>
 
-          <span className="justify-self-center font-medium text-[10px] ml-4 lg:ml-0 md:text-sm">
-            <span className="font-normal">{props.endpoint}</span>
+          <span className="justify-self-center font-medium text-[10px] ml-0 sm:ml-4 lg:ml-0 md:text-sm text-wrap max-[400px]:max-w-[160px] ">
+            <span className="font-normal ">{props.endpoint}</span>
           </span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -57,14 +57,14 @@ const Accordion = (props) => {
                 <div>
                   {props?.items?.map((item, id) => {
                     return (
-                      <div>
+                      <div key={id}>
                         <h5 className="text-xs md:text-sm">{item.title}</h5>
                         <div className="items-wrap overflow-scroll">
                           {item?.children?.map((param) => {
                             return (
                               <div
                                 key={param?.key + id}
-                                className="grid gap-2 grid-cols-[1fr_1fr_2fr] text-xs md:text-sm border-0 border-b border-solid border-[rgba(174,174,174,0.2)] pt-3.5"
+                                className="grid gap-2 grid-cols-[116px_45px_auto] sm:grid-cols-[1fr_1fr_2fr] text-xs md:text-sm border-0 border-b border-solid border-[rgba(174,174,174,0.2)] pt-3.5"
                               >
                                 <div className="text">
                                   <p className="tracking-widest border-0 border-solid border-b-3 border-red-100">
@@ -82,7 +82,9 @@ const Accordion = (props) => {
                                   <p>{param?.dataType}</p>
                                 </div>
                                 <div>
-                                  <p>{param?.description}</p>
+                                  <p className="w-[100%]">
+                                    {param?.description}
+                                  </p>
                                 </div>
                               </div>
                             );

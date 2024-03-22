@@ -6,7 +6,7 @@ import { AdvancedImage } from "@cloudinary/react";
 const Hero = () => {
   const cld = new Cloudinary({ cloud: { cloudName: "delflsgq4" } });
   return (
-    <div className="grid grid-cols-3 gap-6 mx-auto my-14">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mx-auto my-14">
       <div
         className={twMerge(
           "rounded-lg hover:no-underline text-center p-6",
